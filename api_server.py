@@ -16,9 +16,18 @@ app = Flask(__name__)
 CORS(app)
 
 # ─── Load model artifacts ────────────────────────────────────────────────────
+MODEL_PATH = "breast_model.pkl"
+
+print(f"Looking for model at: {os.path.abspath(MODEL_PATH)}")
+print(f"Model exists: {os.path.exists(MODEL_PATH)}")
+
 try:
-    model = joblib.load("breast_model.pkl")
+    print("Loading model...")
+    model = joblib.load(MODEL_PATH)
+    print("Model loaded successfully")
 except Exception as e:
+    print(f"MODEL LOAD FAILED: {e}")
+    traceback.print_exc()
     raise RuntimeError(f"Failed to load breast_model.pkl: {e}")
 
 # Read feature count and class mapping from training metadata (fallback to 20)

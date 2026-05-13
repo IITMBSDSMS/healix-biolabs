@@ -77,7 +77,7 @@ def safe_read_csv(file) -> pd.DataFrame:
         {"sep": "\t", "engine": "python", "on_bad_lines": "skip"},   # TSV
         {"sep": ";", "engine": "python", "on_bad_lines": "skip"},    # Semicolon
         {"sep": "|", "engine": "python", "on_bad_lines": "skip"},    # Pipe
-        {"sep": "\s+", "engine": "python", "on_bad_lines": "skip"},  # Whitespace
+        {"sep": r"\\s+", "engine": "python", "on_bad_lines": "skip"},  # Whitespace
     ]
 
     last_error = None

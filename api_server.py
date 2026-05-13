@@ -461,6 +461,17 @@ def predict():
 
 # ─── Health check ────────────────────────────────────────────────────────────
 
+# Root endpoint for service status/info
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "status": "live",
+        "service": "Healix BioLabs API",
+        "message": "Healix backend is running successfully",
+        "predict_endpoint": "/predict",
+        "health_endpoint": "/health"
+    }), 200
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
@@ -514,7 +525,7 @@ if __name__ == "__main__":
     print(f"  API Endpoint:       http://0.0.0.0:{port}/predict")
     print(f"  Health Check:       http://0.0.0.0:{port}/health")
     print("=" * 60)
-    print(f"  Starting Flask server on port {port}")
+    print(f"  Starting Flask/Gunicorn server on port {port}")
     print("=" * 60)
 
     app.run(host="0.0.0.0", port=port, debug=False)
